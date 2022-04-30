@@ -1,5 +1,5 @@
 import subprocess
-from config import audio_file
+
 import pygame
 pygame.init()
 
@@ -10,7 +10,8 @@ def shutdown():
     """
     subprocess.run(["shutdown"])
 
-def say_hello():
+
+def voice(audio_file):
 
     song = pygame.mixer.Sound(audio_file)
     song.play()

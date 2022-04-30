@@ -1,8 +1,9 @@
 from telebot import *
 import re
 import logging
+from time import sleep
 
-from config import *
+from config import hello, bay, key
 import command_os
 import command_google
 
@@ -26,6 +27,19 @@ def help(message):
     bot.send_message(message.chat.id, hellper)
 
 
+@bot.message_handler(commands=['start'])
+def menu(message):
+
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+
+    linux_bot = types.KeyboardButton('shutdown')
+    markup.add(linux_bot)
+
+    command_os.voice(hello)
+    bot.send_message(message.chat.id, 'здравствуйте', reply_markup=markup)
+
+
+
 # метод для команд (основное меню)
 @bot.message_handler(commands=['menu'])
 def menu(message): 
@@ -36,9 +50,8 @@ def menu(message):
     linux_bot = types.KeyboardButton('shutdown')
     markup.add(linux_bot)
 
-    # command_os.voice()
-
-    bot.send_message(message.chat.id, 'Здравствуйте, сэр', reply_markup=markup)
+    bot.send_message(message.chat.id, 'меню', reply_markup=markup)
+    # command_os.voice(hello)
 
 
 
@@ -49,19 +62,15 @@ def menu_responce(message):
     if re.finditer("загугли ", message.text):
         search = ' '.join(message.text.split()[1:])
         if len(search) != 0:
-
             command_google.search_google(search)
-    
+
             bot.send_message(message.chat.id, f'гуглю: {search}')
 
-
-
     if re.search("https?://[\w.-]+", message.text):
-        
+
         command_google.open_link(message)
 
         bot.send_message(message.chat.id, f'open: {message.text}')
-
 
 
     if message.text == "shutdown":
@@ -75,14 +84,16 @@ def menu_responce(message):
 
     if message.text == "yep":
         
-        bot.send_message(message.chat.id, "готово")
+        bot.send_message(message.chat.id, "досвидания")
     
-        # command_os.voice()
-        menu(message)
+        command_os.voice(bay)
+        sleep(3)
+        # menu(message)
         # command_os.kill_and_shutdown()
 
 
-
+    # else:
+    #     bot.send_message(message.chat.id, "не распознано")
 
 
 
