@@ -1,42 +1,16 @@
-from itertools import count
-import os
-import sys
+import subprocess
 from config import audio_file
-
 import pygame
 pygame.init()
 
 
-def kill_and_shutdown():
+def shutdown():
     """
     завершение процессов и завершения работы 
     """
-    program_list = [
-        "gedit",
-        "code",
-        "google",
-        "telegram-desktop"
-    ]
+    subprocess.run(["shutdown"])
 
-    for elem in program_list:
-
-        try:
-            os.system(f"killall {elem}")
-
-        except Exception as exp:
-            print(exp)
-            continue
-        finally:
-            os.system("shutdown now")
-
-
-def voice():
-
-
+def say_hello():
 
     song = pygame.mixer.Sound(audio_file)
-    # clock = pygame.time.Clock()
     song.play()
-    # while True:
-    #     clock.tick(60)
-    # pygame.quit()
