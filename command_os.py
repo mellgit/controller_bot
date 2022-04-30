@@ -1,6 +1,7 @@
 from itertools import count
 import os
 import sys
+from config import audio_file
 
 import pygame
 pygame.init()
@@ -30,14 +31,10 @@ def kill_and_shutdown():
 
 
 def voice():
-    # song = pyglet.media.load('/home/mell/documents/voice_assist/hello_new.mp3')
-    # song.play()
-    # pyglet.app.run()
-    # pyglet.app.exit()
 
-    ln_file = '/home/mell/documents/voice_assist/hello_new.mp3'
 
-    song = pygame.mixer.Sound(ln_file)
+
+    song = pygame.mixer.Sound(audio_file)
     # clock = pygame.time.Clock()
     song.play()
     # while True:
