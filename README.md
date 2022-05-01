@@ -1,8 +1,11 @@
 # controller_bot
 
 for help selenium
-Chromedriver - https://chromedriver.chromium.org/downloads
-instraction - https://chromedriver.chromium.org/getting-started
+
+* Chromedriver - https://chromedriver.chromium.org/downloads
+* instraction - https://chromedriver.chromium.org/getting-started
+
+работа со звуком - https://ru.stackoverflow.com/questions/773188
 
 Создать юнит и bash скрипт, после добавить права для них
 ```
