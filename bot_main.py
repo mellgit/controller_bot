@@ -15,8 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
 bot = telebot.TeleBot(key)
 
 
-
-
+# помощь
 @bot.message_handler(commands=['help'])
 def help(message):
     hellper = """
@@ -27,18 +26,16 @@ def help(message):
     bot.send_message(message.chat.id, hellper)
 
 
+# приветствие 
 @bot.message_handler(commands=['start'])
 def menu(message):
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-
-    linux_bot = types.KeyboardButton('shutdown')
-    markup.add(linux_bot)
+    # markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 
     command_os.voice(hello)
-    bot.send_message(message.chat.id, 'здравствуйте', reply_markup=markup)
 
-
+    bot.send_message(message.chat.id, 'здравствуйте')
+    
 
 # метод для команд (основное меню)
 @bot.message_handler(commands=['menu'])
@@ -46,20 +43,21 @@ def menu(message):
 
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+    mixer_but = types.KeyboardButton('mute')
+    linux_but = types.KeyboardButton('shutdown')
+    mixer_but_pluse = types.KeyboardButton('+')
+    mixer_but_minus = types.KeyboardButton('-')
 
-    linux_bot = types.KeyboardButton('shutdown')
-    markup.add(linux_bot)
+    markup.add(mixer_but_minus, mixer_but, mixer_but_pluse, linux_but)
 
-    bot.send_message(message.chat.id, 'меню', reply_markup=markup)
-    # command_os.voice(hello)
-
-
+    bot.send_message(message.chat.id, "меню", reply_markup=markup)
+    
 
 @bot.message_handler(content_types=['text'])
 def menu_responce(message):
 
     
-    if re.finditer("загугли ", message.text):
+    if re.finditer("загугли ", message.text.lower()):
         search = ' '.join(message.text.split()[1:])
         if len(search) != 0:
             command_google.search_google(search)
@@ -80,16 +78,28 @@ def menu_responce(message):
         markup.add(yep)
         bot.send_message(message.chat.id, 'вы уверены?', reply_markup=markup)
 
+    if message.text == "mute":
+
+        bot.send_message(message.chat.id, command_os.mixer())
+    
+    if message.text == "+":
+
+        bot.send_message(message.chat.id, command_os.mixer("+"))
 
 
+    if message.text == "-":
+
+        bot.send_message(message.chat.id, command_os.mixer("-"))
+
+    
     if message.text == "yep":
         
         bot.send_message(message.chat.id, "досвидания")
     
         command_os.voice(bay)
         sleep(3)
-        # menu(message)
-        # command_os.kill_and_shutdown()
+        
+        # command_os.shutdown()
 
 
     # else:
