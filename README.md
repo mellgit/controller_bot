@@ -7,6 +7,9 @@ for help selenium
 
 работа со звуком - https://ru.stackoverflow.com/questions/773188
 
+сделать меню для команд - https://ru.stackoverflow.com/questions/1345315
+
+
 Создать юнит и bash скрипт, после добавить права для них
 ```
 sudo chmod 644 /lib/systemd/system/name.service
